@@ -1,0 +1,49 @@
+/*
+ Theme Name:   Twenty Twenty Four Child
+ Theme URI:    http://example.com/twentytwentyfour-child/
+ Description:  Child theme cho Twenty Twenty Four
+ Author:       Tên của bạn
+ Author URI:   http://example.com
+ Template:     twentytwentyfour
+ Version:      1.0.0
+ Text Domain:  twentytwentyfour-child
+*/
+
+body{
+    background-color: #cccccc !important;
+}
+
+
+.custom-post-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.custom-post-item {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.view-switcher {
+    margin-bottom: 20px;
+}
+
+.switch-view {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.switch-view.active {
+    background-color: #0073aa;
+    color: #fff;
+}
+
+.grid-view .custom-post-item {
+    width: calc(33.333% - 20px);
+    margin-right: 20px;
+}
+
+.grid-view .custom-post-item:nth-child(3n) {
+    margin-right: 0;
+}
+

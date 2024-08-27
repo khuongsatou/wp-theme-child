@@ -1,0 +1,252 @@
+
+/* Đặt nền tổng thể và font chữ */
+body {
+    background-color: #f5f5f5;
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* Định dạng chung cho content area */
+.content-area {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Tiêu đề bài viết */
+.entry-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Metadata của bài viết */
+.entry-meta {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.entry-meta .posted-on, 
+.entry-meta .byline {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.entry-meta .byline:before {
+    content: "•";
+    margin-right: 10px;
+}
+
+/* Hình ảnh nổi bật */
+.post-thumbnail {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.post-thumbnail img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Nội dung bài viết */
+.entry-content {
+    font-size: 1.125rem;
+    color: #444;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+.entry-content p {
+    margin-bottom: 20px;
+}
+
+.entry-content a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.entry-content a:hover {
+    text-decoration: underline;
+}
+
+/* Phân trang nội dung (nếu có) */
+.page-links {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.page-links a {
+    padding: 5px 10px;
+    background-color: #3498db;
+    color: #ffffff;
+    border-radius: 3px;
+    margin: 0 5px;
+    text-decoration: none;
+}
+
+.page-links a:hover {
+    background-color: #2980b9;
+}
+
+/* Chân trang bài viết (category, tags, edit link) */
+.entry-footer {
+    border-top: 1px solid #ecf0f1;
+    padding-top: 20px;
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.entry-footer .cat-links,
+.entry-footer .tags-links {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.entry-footer .edit-link {
+    display: inline-block;
+    float: right;
+}
+
+/* Điều hướng bài viết */
+.post-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin: 40px 0;
+    font-size: 1rem;
+}
+
+.post-navigation .nav-previous a,
+.post-navigation .nav-next a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.post-navigation .nav-previous a:hover,
+.post-navigation .nav-next a:hover {
+    text-decoration: underline;
+}
+
+/* Bình luận */
+.comments-area {
+    margin-top: 50px;
+}
+
+.comments-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.comment-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.comment-list .comment {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.comment-list .comment-author {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.comment-list .comment-metadata {
+    font-size: 0.875rem;
+    color: #7f8c8d;
+}
+
+.comment-list .comment-content {
+    font-size: 1rem;
+    color: #333;
+    margin-top: 10px;
+}
+
+.comment-list .reply {
+    margin-top: 10px;
+}
+
+.comment-list .reply a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.comment-list .reply a:hover {
+    text-decoration: underline;
+}
+
+/* Form bình luận */
+.comment-respond {
+    margin-top: 50px;
+}
+
+.comment-form-comment {
+    margin-bottom: 20px;
+}
+
+.comment-form-comment textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+}
+
+.comment-form input[type="submit"] {
+    background-color: #3498db;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.comment-form input[type="submit"]:hover {
+    background-color: #2980b9;
+}
+
+
+.primary-navigation {
+    background-color: #34495e;
+    padding: 10px;
+    text-align: center;
+}
+
+.primary-navigation ul.menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.primary-navigation ul.menu li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+.primary-navigation ul.menu li a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.primary-navigation ul.menu li a:hover {
+    color: #1abc9c;
+}
+
+

@@ -8,3 +8,9 @@
  Version:      1.0.0
  Text Domain:  twentytwentyfour-child
 */
+
+
+@import url('css/base.css');
+@import url('css/menu.css');
+@import url('css/sidebar.css');
+

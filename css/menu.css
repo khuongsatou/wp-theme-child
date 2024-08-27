@@ -1,0 +1,46 @@
+
+/* Định dạng tổng thể cho thanh điều hướng */
+.main-navigation {
+    background-color: #333;
+    padding: 15px 0;
+    text-align: center;
+}
+
+/* Định dạng cho menu chính */
+#primary-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+
+    background-color: red !important;
+}
+
+/* Định dạng cho các mục menu */
+#primary-menu li {
+    display: inline-block;
+    margin: 0 15px;
+}
+
+/* Định dạng cho liên kết trong menu */
+#primary-menu li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 10px 15px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
+}
+
+/* Hiệu ứng hover cho liên kết trong menu */
+#primary-menu li a:hover {
+    background-color: #1abc9c;
+    color: #ffffff;
+}
+
+/* Hiệu ứng khi menu bị focus */
+#primary-menu li a:focus {
+    outline: 2px solid #1abc9c;
+    outline-offset: 2px;
+}

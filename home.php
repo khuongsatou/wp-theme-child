@@ -12,7 +12,7 @@ get_header(); // Gọi header.php
 
         <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
             <header class="entry-header">
-                <?php the_title( '<h1 class="entry-title">', '</h1>' ); // Hiển thị tiêu đề bài viết ?>
+                <h1 class="entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); // Hiển thị tiêu đề bài viết ?></a></h1>
             </header><!-- .entry-header -->
 
             <div class="entry-meta">
@@ -60,6 +60,9 @@ get_header(); // Gọi header.php
 
     </main><!-- #main -->
 </div><!-- #primary -->
+
+
+
 
 <?php
 get_sidebar(); // Gọi sidebar.php nếu có

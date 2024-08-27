@@ -6,6 +6,21 @@ function twentytwentyfour_child_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'twentytwentyfour_child_enqueue_styles' );
 
+function custom_enqueue_scripts() {
+    echo 'script loaded ';
+    // Enqueue script.js từ Child Theme
+    wp_enqueue_script(
+        'twentytwentyfour-child-script', // Tên script
+        get_stylesheet_directory_uri() . '/js/toggle-list-yatch.js', // Đường dẫn đến script.js
+        array(), // Dependencies (các thư viện cần trước, nếu có)
+        wp_get_theme()->get('Version'), // this only works if you have Version in the style header, // Phiên bản của script
+        true // Đặt true để tải script trong footer, false để tải trong header
+    );
+}
+
+add_action( 'wp_enqueue_scripts', 'custom_enqueue_scripts' );
+
+
 
 // Ví dụ: Thêm một chức năng tùy chỉnh cho theme child
 function twentytwentyfour_child_main_function() {
@@ -25,56 +40,8 @@ add_action( 'init', 'twentytwentyfour_child_main_function' );
 
 // require_once "template-parts/content.php";
 
+// Include file custom-post-type-yatch.php
+require_once 'inc/custom-post-type-yatch.php';
 
-
-// Thêm Post Type mới
-function twentytwentyfour_child_create_post_type() {
-    register_post_type( 'my_custom_post_type',
-      array(
-        'labels' => array(
-          'name' => 'Bài viết tùy chỉnh', // Tên hiển thị cho Post Type
-          'singular_name' => 'Bài viết tùy chỉnh', // Tên hiển thị cho một bài viết
-          'add_new' => 'Thêm mới',
-          'add_new_item' => 'Thêm bài viết mới',
-          'edit_item' => 'Chỉnh sửa bài viết',
-          'new_item' => 'Bài viết mới',
-          'view_item' => 'Xem bài viết',
-          'search_items' => 'Tìm kiếm bài viết',
-          'not_found' => 'Không tìm thấy bài viết',
-          'not_found_in_trash' => 'Không tìm thấy bài viết trong thùng rác',
-        ),
-        'public' => true, // Cho phép hiển thị Post Type công khai
-        'has_archive' => true, // Cho phép tạo archive cho Post Type
-        'menu_position' => 5, // Vị trí trong menu quản trị
-        'supports' => array( 'title', 'editor', 'thumbnail', 'excerpt' ), // Hỗ trợ các tính năng cho Post Type
-      )
-    );
-  }
-  add_action( 'init', 'twentytwentyfour_child_create_post_type' );
-
-
-function create_post_type() {
-  // ... (code tạo post type my_custom_post_type) ...
-
-  register_taxonomy( 'product_type', 'my_custom_post_type', array(
-    'labels' => array(
-      'name' => 'Loại sản phẩm',
-      'singular_name' => 'Loại sản phẩm',
-    ),
-    'hierarchical' => true, // Cho phép tạo phân cấp cho Taxonomy
-    'public' => true,
-  ));
-}
-add_action( 'init', 'create_post_type' );
-
-
-// Trong template-parts/content-my_custom_post_type.php
-$terms = get_the_terms( get_the_ID(), 'product_type' );
-if ( $terms ) {
-  echo '<div class="product-type">';
-  foreach ( $terms as $term ) {
-    echo $term->name;
-  }
-  echo '</div>';
-}
-?>
+// Include file custom-taxonomy-yatch-type.php
+require_once 'inc/custom-taxonomy-yatch-type.php';

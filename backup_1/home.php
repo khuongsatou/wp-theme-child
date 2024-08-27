@@ -36,7 +36,7 @@ $args = array(
 $custom_query = new WP_Query( $args );
 
 if ( $custom_query->have_posts() ) : ?>
-    <div class="custom-post-list">
+    <div id="yatch-posts" class="custom-post-list list-view">
         <?php while ( $custom_query->have_posts() ) : $custom_query->the_post(); ?>
             <div class="custom-post-item">
                 <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>

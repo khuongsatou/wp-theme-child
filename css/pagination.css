@@ -1,0 +1,20 @@
+/* Pagination Styling */
+.pagination {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.pagination .page-numbers {
+    display: inline-block;
+    margin: 0 5px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    background-color: #0073aa;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.pagination .page-numbers:hover,
+.pagination .page-numbers.current {
+    background-color: #005177;
+}

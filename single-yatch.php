@@ -22,6 +22,12 @@
                 <?php the_content(); ?>
             </div>
 
+            <div class="yatch-meta">
+                <p><strong>Star Rating:</strong> <?php echo get_post_meta(get_the_ID(), '_yatch_star_rating', true); ?> stars</p>
+                <p><strong>Review Count:</strong> <?php echo get_post_meta(get_the_ID(), '_yatch_review_count', true); ?> reviews</p>
+                <p><strong>Price:</strong> $<?php echo number_format(get_post_meta(get_the_ID(), '_yatch_price', true)); ?></p>
+            </div>
+
             <footer class="entry-footer">
                 <?php
                 // Hiển thị các taxonomy liên quan nếu có

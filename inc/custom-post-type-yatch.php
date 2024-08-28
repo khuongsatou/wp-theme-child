@@ -118,22 +118,78 @@ function fill_yatch_columns( $column, $post_id ) {
 add_action( 'manage_yatch_posts_custom_column', 'fill_yatch_columns', 10, 2 );
 
 
-# Sắp xếp order list yatch
-add_action( 'pre_get_posts', 'sort_yatch_posts' );
-function sort_yatch_posts( $query ) {
-    if ( !is_admin() && $query->is_main_query() && is_post_type_archive( 'yatch' ) ) {
-        if ( isset( $_GET['orderby'] ) ) {
-            $orderby = $_GET['orderby'];
-            if ( $orderby === 'star_rating' ) {
-                $query->set( 'meta_key', '_yatch_star_rating' );
-                $query->set( 'orderby', 'meta_value_num' );
-            } elseif ( $orderby === 'review_count' ) {
-                $query->set( 'meta_key', '_yatch_review_count' );
-                $query->set( 'orderby', 'meta_value_num' );
-            } elseif ( $orderby === 'price' ) {
-                $query->set( 'meta_key', '_yatch_price' );
-                $query->set( 'orderby', 'meta_value_num' );
-            }
-        }
+# CURD list yatch
+
+
+function ajax_search_yatchs() {
+    $search_term = isset($_POST['search_term']) ? sanitize_text_field($_POST['search_term']) : '';
+    $orderby = isset($_POST['sort_by']) ? sanitize_text_field($_POST['sort_by']) : 'date';
+    $meta_key = '';
+    $orderby_clause = $orderby;
+
+    if ($orderby === 'star_rating') {
+        $meta_key = '_yatch_star_rating';
+        $orderby_clause = 'meta_value_num';
+    } elseif ($orderby === 'review_count') {
+        $meta_key = '_yatch_review_count';
+        $orderby_clause = 'meta_value_num';
+    } elseif ($orderby === 'price') {
+        $meta_key = '_yatch_price';
+        $orderby_clause = 'meta_value_num';
     }
+
+    $args = array(
+        'post_type' => 'yatch',
+        'posts_per_page' => 10,
+        'order' => 'DESC',
+        'orderby' => $orderby_clause,
+        's' => $search_term,
+    );
+
+    if ($meta_key) {
+        $args['meta_key'] = $meta_key;
+    }
+
+    $yatch_query = new WP_Query($args);
+
+    if ($yatch_query->have_posts()) {
+        while ($yatch_query->have_posts()) {
+            $yatch_query->the_post();
+            ?>
+            <article <?php post_class(); ?>>
+                <header class="entry-header">
+                    <h2 class="entry-title">
+                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                    </h2>
+                </header>
+                <div class="entry-summary">
+                    <?php the_excerpt(); ?>
+                </div>
+                <?php if (has_post_thumbnail()) : ?>
+                    <div class="post-thumbnail">
+                        <a href="<?php the_permalink(); ?>">
+                            <?php the_post_thumbnail('thumbnail'); ?>
+                        </a>
+                    </div>
+                <?php endif; ?>
+                
+                <div class="yatch-meta">
+                    <p><strong>Star Rating:</strong> <?php echo get_post_meta(get_the_ID(), '_yatch_star_rating', true); ?> stars</p>
+                    <p><strong>Review Count:</strong> <?php echo get_post_meta(get_the_ID(), '_yatch_review_count', true); ?> reviews</p>
+                    <p><strong>Price:</strong> $<?php echo number_format(get_post_meta(get_the_ID(), '_yatch_price', true)); ?></p>
+                </div>
+            </article>
+            <?php
+        }
+    } else {
+        echo '<p>No yachts found.</p>';
+    }
+
+    wp_reset_postdata();
+
+    die(); // Dừng việc xử lý
 }
+
+add_action('wp_ajax_search_yatchs', 'ajax_search_yatchs');
+add_action('wp_ajax_nopriv_search_yatchs', 'ajax_search_yatchs');
+

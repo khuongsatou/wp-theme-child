@@ -1,6 +1,12 @@
 <?php get_header(); ?>
 
 <main id="main-content" class="site-main" role="main">
+    <!-- Form tìm kiếm -->
+    <div class="search-form-container">
+        <input type="text" id="search-term" placeholder="Search Yachts..." />
+        <button id="search-button">Search</button>
+    </div>
+
     <div class="view-toggle">
         <button id="list-view">List View</button>
         <button id="grid-view">Grid View</button>
@@ -15,87 +21,59 @@
         </select>
     </div>
 
-    <?php
-    // Lấy giá trị sắp xếp từ query string nếu có
-    $orderby = isset( $_GET['orderby'] ) ? $_GET['orderby'] : 'date';
-    $meta_key = '';
-    $orderby_clause = $orderby;
-
-    // Điều chỉnh meta_key và orderby cho các tùy chọn sắp xếp khác nhau
-    if ( $orderby === 'star_rating' ) {
-        $meta_key = '_yatch_star_rating';
-        $orderby_clause = 'meta_value_num';
-    } elseif ( $orderby === 'review_count' ) {
-        $meta_key = '_yatch_review_count';
-        $orderby_clause = 'meta_value_num';
-    } elseif ( $orderby === 'price' ) {
-        $meta_key = '_yatch_price';
-        $orderby_clause = 'meta_value_num';
-    }
-
-    // Tạo custom query để lấy bài viết từ post type 'yatch'
-    $args = array(
-        'post_type'      => 'yatch',
-        'posts_per_page' => 10, // Số bài viết muốn hiển thị
-        'order'          => 'DESC', // Sắp xếp theo thứ tự giảm dần
-        'orderby'        => $orderby_clause, // Sắp xếp theo tùy chọn
-    );
-
-    if ( $meta_key ) {
-        $args['meta_key'] = $meta_key;
-    }
-
-    $yatch_query = new WP_Query( $args );
-
-    if ( $yatch_query->have_posts() ) :
-        ?>
-        <div id="yatch-posts" class="list-view">
+    <!-- Kết quả tìm kiếm -->
+    <div id="yatch-posts" class="list-view">
         <?php
-        while ( $yatch_query->have_posts() ) : $yatch_query->the_post();
-            ?>
-            
-            <article <?php post_class(); ?>>
-                <header class="entry-header">
-                    <h2 class="entry-title">
-                        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                    </h2>
-                </header>
-
-                <div class="entry-summary">
-                    <?php the_excerpt(); ?>
-                </div>
-
-                <?php if ( has_post_thumbnail() ) : ?>
-                    <div class="post-thumbnail">
-                        <a href="<?php the_permalink(); ?>">
-                            <?php the_post_thumbnail( 'thumbnail' ); ?>
-                        </a>
-                    </div>
-                <?php endif; ?>
-            </article>
-            <?php
-        endwhile;
-
-        // Phân trang nếu cần thiết
-        the_posts_pagination();
-
+        // Hiển thị danh sách mặc định (có thể giống như trước)
         ?>
-        
-        </div>
-
-        <?php
-
-
-
-    else :
-        echo '<p>No yatchs found.</p>';
-    endif;
-
-    // Reset lại dữ liệu của WP_Query
-    wp_reset_postdata();
-    ?>
+    </div>
 </main><!-- #main-content -->
 
 <?php get_sidebar(); ?>
 <?php get_footer(); ?>
 
+
+
+
+<script>
+jQuery(document).ready(function($) {
+    function fetchYatchs() {
+        var searchTerm = $('#search-term').val();
+        var sortBy = $('#sort-by').val();
+
+        var data = {
+            'action': 'search_yatchs',
+            'search_term': searchTerm,
+            'sort_by': sortBy
+        };
+
+        $.post('<?php echo admin_url('admin-ajax.php'); ?>', data, function(response) {
+            $('#yatch-posts').html(response);
+        });
+    }
+
+    // Gọi hàm fetchYatchs() ngay khi trang được load
+    fetchYatchs();
+
+    // Tìm kiếm khi nhấn nút search
+    $('#search-button').on('click', function() {
+        fetchYatchs();
+    });
+
+    // Sắp xếp khi thay đổi tùy chọn sort
+    $('#sort-by').on('change', function() {
+        fetchYatchs();
+    });
+
+    // Chuyển đổi giữa chế độ list và grid
+    $('#list-view').on('click', function() {
+        $('#yatch-posts').removeClass('grid-view').addClass('list-view');
+    });
+
+    $('#grid-view').on('click', function() {
+        $('#yatch-posts').removeClass('list-view').addClass('grid-view');
+    });
+});
+
+
+</script>

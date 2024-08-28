@@ -6,6 +6,14 @@ function twentytwentyfour_child_enqueue_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'twentytwentyfour_child_enqueue_styles' );
 
+function my_enqueue_scripts() {
+    // Đảm bảo jQuery được tải
+    wp_enqueue_script('jquery');
+    
+}
+add_action('wp_enqueue_scripts', 'my_enqueue_scripts');
+
+
 function custom_enqueue_scripts() {
     echo 'script loaded ';
     // Enqueue script.js từ Child Theme

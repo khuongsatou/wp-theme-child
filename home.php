@@ -67,4 +67,3 @@ get_header(); // Gọi header.php
 <?php
 get_sidebar(); // Gọi sidebar.php nếu có
 get_footer(); // Gọi footer.php
-?>
